@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Resources:
+  ExpenseAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+        Name: Basic AWS Api Gateway
+        StageName: Dev
+  EnterExpense:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs12.x
+      CodeUri: src/
+      Handler: enter-expense.handler
+      Events:
+        ExpenseAPI:
+          Type: Api
+          Properties:
+            Path: /enter-expense
+            Method: POST
+            RestApiId: !Ref ExpenseAPI
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource: !GetAtt "ExpensesTable.Arn"
+  UpdateExpense:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs12.x
+      CodeUri: src/
+      Handler: update-expense.handler
+      Events:
+        ExpenseAPI:
+          Type: Api
+          Properties:
+            Path: /update-expense/{expenseId}
+            Method: PUT
+            RestApiId: !Ref ExpenseAPI
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource: !GetAtt "ExpensesTable.Arn"
+  ListExpenses:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs12.x
+      CodeUri: src/
+      Handler: list-expenses.handler
+      Events:
+        ExpenseAPI:
+          Type: Api
+          Properties:
+            Path: /list-expense
+            Method: GET
+            RestApiId: !Ref ExpenseAPI
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource: !GetAtt "ExpensesTable.Arn"
+  ExpensesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: "Expenses"
+      AttributeDefinitions:
+        - AttributeName: "expenseId"
+          AttributeType: S
+      KeySchema:
+        - AttributeName: "expenseId"
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: True

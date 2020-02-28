@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "crafting-serverless"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1728hmahl1qm3"
+s3_prefix = "crafting-serverless"
+region = "eu-west-3"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+

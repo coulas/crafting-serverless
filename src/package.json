@@ -1,0 +1,13 @@
+{
+  "name": "crafting-serverless",
+  "version": "1.0.0",
+  "description": "import libs for aws lambda",
+  "main": "src/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.627.0",
+    "uuid": "^7.0.1"
+  }
+}

@@ -1,0 +1,10 @@
+Each lambda loads all files in codeUri folders, so al other lambda code...
+But also All Other Lambda Dependencies !!!
+
+so :
+root:
+    lambda1:
+        lambdacode.js
+        package.json
+    lambda2:
+        ...
