@@ -27,6 +27,9 @@ Resources:
               Action:
                 - dynamodb:PutItem
               Resource: !GetAtt "ExpensesTable.Arn"
+      Environment:
+        Variables:
+          EXPENSESTABLENAME: !Ref ExpensesTable
   UpdateExpense:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,6 +50,9 @@ Resources:
               Action:
                 - dynamodb:PutItem
               Resource: !GetAtt "ExpensesTable.Arn"
+      Environment:
+        Variables:
+          EXPENSESTABLENAME: !Ref ExpensesTable
   ListExpenses:
     Type: AWS::Serverless::Function
     Properties:
@@ -67,10 +73,12 @@ Resources:
               Action:
                 - dynamodb:PutItem
               Resource: !GetAtt "ExpensesTable.Arn"
+      Environment:
+        Variables:
+          EXPENSESTABLENAME: !Ref ExpensesTable
   ExpensesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: "Expenses"
       AttributeDefinitions:
         - AttributeName: "expenseId"
           AttributeType: S
