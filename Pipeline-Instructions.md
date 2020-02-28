@@ -77,18 +77,13 @@ Before we create this 3-environment Pipeline through Cloudformation you may want
 Run the following AWS CLI command to create your first pipeline for your SAM based Serverless App:
 
 ```bash
-aws cloudformation create-stack \
-    --stack-name pipeline-pipeline \
-    --template-body file://pipeline.yaml \
-    --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack --stack-name craftingserverless-pipeline --template-body file://pipeline.yaml --capabilities CAPABILITY_NAMED_IAM
 ```
 
 This may take a couple of minutes to complete, therefore give it a minute or two and then run the following command to retrieve the Git repository:
 
 ```bash
-aws cloudformation describe-stacks \
-    --stack-name pipeline-pipeline \
-    --query 'Stacks[].Outputs'
+aws cloudformation describe-stacks --stack-name craftingserverless-pipeline --query 'Stacks[].Outputs'
 ```
 
 ## Release through the newly built Pipeline
